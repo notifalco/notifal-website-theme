@@ -1074,13 +1074,34 @@ add_filter( 'body_class', 'notifal_account_body_classes' );
  * Modify WooCommerce account menu items
  */
 function notifal_custom_account_menu_items( $items ) {
+    // Remove support-tickets endpoint added by plugin
+    if ( isset( $items['support-tickets'] ) ) {
+        unset( $items['support-tickets'] );
+    }
+
     // Rename 'edit-account' to 'settings'
     if ( isset( $items['edit-account'] ) ) {
         $items['edit-account'] = __( 'Settings', 'notifal' );
     }
 
-    // Remove unwanted items or add new ones
-    // $items['custom-endpoint'] = __( 'Custom Page', 'notifal' );
+    // Add support endpoint after license-manager
+    if ( isset( $items['license-manager'] ) ) {
+        // Find the position of license-manager
+        $position = array_search( 'license-manager', array_keys( $items ) );
+        if ( $position !== false ) {
+            // Insert support after license-manager
+            $position++;
+            $items = array_slice( $items, 0, $position, true ) +
+                    array( 'support' => __( 'Support', 'notifal' ) ) +
+                    array_slice( $items, $position, null, true );
+        } else {
+            // Fallback: just add it at the end
+            $items['support'] = __( 'Support', 'notifal' );
+        }
+    } else {
+        // If license-manager doesn't exist, add support at the end
+        $items['support'] = __( 'Support', 'notifal' );
+    }
 
     return $items;
 }
@@ -1091,20 +1112,19 @@ add_filter( 'woocommerce_account_menu_items', 'notifal_custom_account_menu_items
  */
 function notifal_add_custom_endpoints() {
     // Add custom endpoint for support or other features
-    // add_rewrite_endpoint( 'support', EP_ROOT | EP_PAGES );
+    add_rewrite_endpoint( 'support', EP_PAGES );
 }
 add_action( 'init', 'notifal_add_custom_endpoints' );
 
 /**
- * Handle custom endpoint content
+ * Handle custom endpoint content for Support
  */
-function notifal_custom_endpoint_content() {
-    // Add content for custom endpoints
-    // if ( is_wc_endpoint_url( 'support' ) ) {
-    //     do_action( 'notifal_support_page_content' );
-    // }
+function notifal_account_support_endpoint() {
+    echo '<div class="notifal-support-portal">';
+    echo do_shortcode( '[fluent_support_portal]' );
+    echo '</div>';
 }
-// add_action( 'woocommerce_account_content', 'notifal_custom_endpoint_content' );
+add_action( 'woocommerce_account_support_endpoint', 'notifal_account_support_endpoint' );
 
 /**
  * Add custom dashboard widgets or content
@@ -1145,8 +1165,9 @@ function notifal_account_content() {
     $endpoint = WC()->query->get_current_endpoint();
 
     // Only override specific endpoints that have custom theme templates
-    $theme_endpoints = array( 'dashboard', 'orders', 'downloads', 'edit-account' );
-    
+    // Note: 'support' is now handled by the endpoint-specific action
+    $theme_endpoints = array( 'dashboard', 'downloads', 'edit-account' );
+
     if ( in_array( $endpoint, $theme_endpoints ) ) {
         // Remove default WooCommerce content ONLY for these specific endpoints
         remove_action( 'woocommerce_account_content', 'woocommerce_account_content', 10 );
@@ -1156,9 +1177,6 @@ function notifal_account_content() {
             case 'dashboard':
                 wc_get_template( 'myaccount/dashboard.php' );
                 break;
-            case 'orders':
-                wc_get_template( 'myaccount/orders.php' );
-                break;
             case 'downloads':
                 wc_get_template( 'myaccount/downloads.php' );
                 break;
@@ -1167,7 +1185,7 @@ function notifal_account_content() {
                 break;
         }
     }
-    // For all other endpoints (like license-manager), let WooCommerce handle them normally
+    // For all other endpoints (like license-manager, support), let WooCommerce handle them normally
 }
 // Run at priority 5 to ensure we can remove the default before it runs
 add_action( 'woocommerce_account_content', 'notifal_account_content', 5 );
@@ -1341,14 +1359,25 @@ function notifal_init_download_handlers() {
     if ( is_admin() || wp_doing_ajax() || wp_doing_cron() ) {
         return;
     }
-    
+
     // Check if this is a download request
     if ( isset( $_GET['notifal_download'] ) ) {
         notifal_handle_download_request();
     }
 }
+
+/**
+ * Flush rewrite rules when theme is activated to ensure custom endpoints work
+ */
+function notifal_flush_rewrite_rules() {
+    if ( get_option( 'notifal_theme_activated' ) !== 'yes' ) {
+        flush_rewrite_rules();
+        update_option( 'notifal_theme_activated', 'yes' );
+    }
+}
 add_action( 'after_setup_theme', 'notifal_after_setup_theme' );
 add_action( 'init', 'notifal_init_download_handlers' );
+add_action( 'init', 'notifal_flush_rewrite_rules' );
 
 // AJAX handlers for download nonce generation
 add_action( 'wp_ajax_notifal_generate_download_nonce', 'notifal_generate_download_nonce_ajax' );
@@ -1381,3 +1410,25 @@ function notifal_generate_download_nonce_ajax() {
     
     wp_send_json_success( array( 'nonce' => $download_nonce ) );
 }
+
+/**
+ * ============================================================================
+ * Custom Redirects for fluent support page
+ * ============================================================================
+ */
+
+/**
+ * Redirect /support to WooCommerce support endpoint
+ */
+function notifal_redirect_support_to_woocommerce() {
+    // Check if current URL is /support
+    if ( isset( $_SERVER['REQUEST_URI'] ) && trim( $_SERVER['REQUEST_URI'], '/' ) === 'support' ) {
+        // Redirect to WooCommerce support endpoint in my account
+        $support_url = wc_get_account_endpoint_url( 'support' );
+        if ( $support_url && $support_url !== wc_get_account_endpoint_url( '' ) ) {
+            wp_redirect( $support_url );
+            exit;
+        }
+    }
+}
+add_action( 'template_redirect', 'notifal_redirect_support_to_woocommerce' );

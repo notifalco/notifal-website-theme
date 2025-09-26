@@ -38,7 +38,8 @@ foreach ( $woocommerce_items as $endpoint => $label ) {
         'orders' => 'shopping-bag',
         'downloads' => 'download',
         'edit-account' => 'settings',
-        'license-manager' => 'key'
+        'license-manager' => 'key',
+        'support' => 'chat'
     );
 
     $icon_name = isset( $icon_mapping[$endpoint] ) ? $icon_mapping[$endpoint] : 'circle';
@@ -55,6 +56,19 @@ foreach ( $woocommerce_items as $endpoint => $label ) {
 $nav_items = apply_filters( 'notifal_account_navigation_items', $nav_items );
 
 $current_endpoint = WC()->query->get_current_endpoint();
+
+// For custom endpoints, also check query vars directly
+if ( empty( $current_endpoint ) ) {
+    global $wp;
+    if ( ! empty( $wp->query_vars ) ) {
+        foreach ( $wp->query_vars as $key => $value ) {
+            if ( in_array( $key, array_keys( $woocommerce_items ) ) ) {
+                $current_endpoint = $key;
+                break;
+            }
+        }
+    }
+}
 ?>
 
 <nav class="woocommerce-my-account__navigation notifal-navigation" aria-label="<?php esc_html_e( 'Account pages', 'woocommerce' ); ?>">

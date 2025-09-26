@@ -67,7 +67,7 @@ do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 </p>
 
 <?php
-do_action( 'woocommerce_email_order_details', $order, $sent_to_admin, $plain_text, $email );
+// do_action( 'woocommerce_email_order_details', $order, $sent_to_admin, $plain_text, $email );
 
 /**
  * Show user-defined additional content - this is set in each email's settings.
