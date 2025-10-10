@@ -714,3 +714,88 @@ p{
 }
 
 /***** End - Notifal User Authentication Menu *****/
+
+
+/***** Start - Notifal Pro Price Shortcode *****/
+
+/* Main container for the price display */
+.notifal-pro-price-container {
+    display: inline-block;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+/* Sale price styling - prominent display */
+.notifal-price-sale {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.notifal-sale-price {
+    font-size: 24px;
+    font-weight: 700;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+/* Regular price with diagonal strikethrough when on sale */
+.notifal-regular-price-crossed {
+    font-size: 16px;
+    position: relative;
+    opacity: 0.7;
+    display: inline-block;
+}
+
+.notifal-regular-price-crossed::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(135deg, #DC2626 0%, #EF4444 100%);
+    transform: rotate(-12deg);
+    transform-origin: center;
+    pointer-events: none;
+}
+
+/* Regular price styling when not on sale */
+.notifal-price-regular {
+    display: inline-block;
+}
+
+.notifal-regular-price {
+    font-size: 24px;
+    font-weight: 700;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Error state styling */
+.notifal-price-error {
+    font-size: 16px;
+    color: #DC2626;
+    font-weight: 500;
+    background-color: #FEF2F2;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #FECACA;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .notifal-sale-price,
+    .notifal-regular-price {
+        font-size: 20px;
+    }
+
+    .notifal-regular-price-crossed {
+        font-size: 14px;
+    }
+}
+
+/***** End - Notifal Pro Price Shortcode *****/

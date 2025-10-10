@@ -1,0 +1,1701 @@
+/**
+ * Notifal Checkout Phone Field Styles
+ * Integrated phone field with country selector inside input
+ */
+
+/***** Notifal Checkout Form Layout *****/
+.notifal-checkout-form {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Full width notices at the top */
+.notifal-checkout-notices-fullwidth {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+/* Main checkout content layout */
+.notifal-checkout-content {
+    display: grid;
+    grid-template-columns: 1fr 0.7fr; /* 67% and 33% ratio (2:1) */
+    grid-template-rows: auto auto;
+    gap: 20px; /* Reduced gap for tighter spacing between sections */
+    width: 100%;
+}
+
+/* Desktop layout using CSS Grid areas */
+.notifal-checkout-heading {
+    grid-column: 1 / -1; /* Span full width */
+}
+
+.notifal-checkout-billing-section {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: start;
+}
+
+.notifal-checkout-order-section {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+}
+
+.notifal-checkout-payment-section {
+    grid-column: 1;
+    grid-row: 3;
+    align-self: start;
+    margin-top: -155px; /* Pull payment section closer to billing section on desktop */
+}
+
+/***** Notifal Failed Payment Styles *****/
+.notifal-failed-payment {
+    text-align: center;
+    padding: 60px 20px;
+    background: #F8EBFF;
+    color: #000;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    width: 600px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.notifal-failed-payment .failed-icon {
+    font-size: 80px;
+
+    opacity: 0.9;
+}
+
+.notifal-failed-payment h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    color: #000 !important;
+}
+
+.notifal-failed-payment p {
+    font-size: 1.2em;
+    margin-bottom: 40px;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.notifal-failed-payment .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.notifal-failed-payment .action-button {
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    min-width: 200px;
+    border: 2px solid #7B2cbf;
+}
+
+.notifal-failed-payment .action-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.notifal-failed-payment .support-button {
+    color: #7b2cbf;
+}
+
+.notifal-failed-payment .retry-button {
+    background: #7b2cbf;
+    color: #F8EBFF;
+}
+
+/* Order Info Styles - Used in both failed payment and standalone shortcode */
+.order-info {
+    margin-top: 25px;
+    border-radius: 10px;
+    font-size: 1.3rem;
+}
+
+.order-info h3 {
+    margin: 0 0 20px 0;
+    font-size: 1.2em !important;
+    color: #000 !important;
+    text-align: center;
+}
+
+.order-info-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(123, 44, 191, 0.12);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.order-info-table tbody tr {
+    border-bottom: 1px solid rgba(123, 44, 191, 0.32);
+}
+
+.order-info-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.order-info-table td {
+    padding: 12px 15px;
+    color: #000;
+    vertical-align: top;
+}
+
+.order-info-table td:first-child {
+    width: 40%;
+    font-weight: 500;
+    background: rgba(123, 44, 191, 0.12);
+}
+
+.order-info-table td strong {
+    color: #000;
+}
+
+/* Specific overrides for failed payment context */
+.notifal-failed-payment .order-info {
+    margin-top: 20px;
+    background: rgba(255,255,255,0.1);
+}
+
+@media (max-width: 768px) {
+    .notifal-failed-payment .action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .notifal-failed-payment .action-button {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .notifal-failed-payment h1 {
+        font-size: 2em;
+    }
+}
+
+.notifal-checkout-elementor-section {
+    grid-column: 2;
+    grid-row: 3;
+    align-self: start;
+}
+
+/* Mobile/Tablet layout - stack all sections */
+@media (max-width: 1024px) {
+    .notifal-checkout-content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* Reset grid positioning for mobile */
+    .notifal-checkout-section {
+        order: unset; /* Remove any custom ordering */
+        width: 100%;
+    }
+
+    /* Reset payment section margin-top on mobile/tablet to prevent overlap */
+    .notifal-checkout-payment-section {
+        margin-top: 0; /* No negative margin on mobile/tablet */
+    }
+
+    /* Natural document order on mobile: heading, billing, order, payment, elementor */
+}
+
+/* Checkout heading */
+.notifal-checkout-heading {
+    margin-bottom: 34px;
+}
+
+.notifal-checkout-heading h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: unset !important;
+    color: #1a1a1a !important;
+}
+
+.notifal-checkout-heading p {
+    font-family: "Raleway", Sans-serif;
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 42px;
+}
+
+/* Billing section - has border */
+.notifal-checkout-billing-section {
+    width: 100%;
+    background: #fdfbff !important;
+    border: 1px solid #EAEAEA;
+    border-radius: 16px !important;
+    padding: 24px;
+    font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Order details section - no border, inherits from original styling */
+.notifal-checkout-order-section {
+    font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+
+/* Elementor section - no border */
+.notifal-checkout-elementor-section {
+    font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Checkout notices styling - consistent with other checkout elements */
+.notifal-checkout-notices {
+    margin-bottom: 20px;
+    font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.notifal-checkout-notices .woocommerce-notice {
+    background: #fdfbff !important;
+    border: 1px solid #EAEAEA !important;
+    border-radius: 16px !important;
+    padding: 20px 24px !important;
+    margin-bottom: 15px !important;
+    border-left: 4px solid #7B2CBF !important;
+    font-weight: 500 !important;
+    font-size: 16px !important;
+    color: #33263A !important;
+    box-shadow: 0 2px 8px rgba(123, 44, 191, 0.08) !important;
+}
+
+.notifal-checkout-notices .woocommerce-notice:not(.woocommerce-notice--success):not(.woocommerce-notice--error):not(.woocommerce-notice--info) {
+    background: #fdfbff !important;
+    border-left-color: #7B2CBF !important;
+    color: #33263A !important;
+}
+
+.notifal-checkout-notices .woocommerce-notice--success {
+    background: #fdfbff !important;
+    border-left-color: #28a745 !important;
+    color: #33263A !important;
+}
+
+.notifal-checkout-notices .woocommerce-notice--success::before {
+    color: #28a745 !important;
+}
+
+.notifal-checkout-notices .woocommerce-notice--error {
+    background: #fdfbff !important;
+    border-left-color: #dc3545 !important;
+    color: #33263A !important;
+}
+
+.notifal-checkout-notices .woocommerce-notice--error::before {
+    color: #dc3545 !important;
+}
+
+.notifal-checkout-notices .woocommerce-notice--info {
+    background: #fdfbff !important;
+    border-left-color: #17a2b8 !important;
+    color: #33263A !important;
+}
+
+.notifal-checkout-notices .woocommerce-notice--info::before {
+    color: #17a2b8 !important;
+}
+
+
+ /***** Notifal Billing Fields Shortcode *****/
+.notifal-billing-only .woocommerce-billing-fields__field-wrapper {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/* Row-based layout using CSS Grid approach */
+.notifal-billing-only .notifal-row-1 {
+    order: 1;
+}
+
+.notifal-billing-only .notifal-row-2 {
+    order: 2;
+}
+
+.notifal-billing-only .notifal-row-3 {
+    order: 3;
+}
+
+.notifal-billing-only .notifal-field-left,
+.notifal-billing-only .notifal-field-right {
+    min-width: calc(50% - 7.5px);
+    margin-bottom: 15px;
+}
+
+.notifal-billing-only .notifal-row-1.notifal-field-right {
+    margin-left: 0;
+}
+
+.notifal-billing-only .notifal-row-2.notifal-field-right {
+    margin-left: 0;
+}
+
+.notifal-billing-only .notifal-row-3.notifal-field-right {
+    margin-left: 0;
+}
+
+.notifal-billing-only .form-row {
+    margin-bottom: 15px;
+}
+
+.notifal-billing-only label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.notifal-billing-only input[type="text"],
+.notifal-billing-only input[type="tel"],
+.notifal-billing-only input[type="email"],
+.notifal-billing-only select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #7B2CBF;
+    background-color: #FDF8FF;
+    color: #33263A;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "Raleway", Sans-serif;
+    height: 50px;
+    border-radius: 12px;
+}
+
+/* Placeholder styles for regular inputs */
+.notifal-billing-only input[type="text"]::placeholder,
+.notifal-billing-only input[type="email"]::placeholder,
+.notifal-billing-only input[type="tel"]::placeholder {
+    color: #DFA5FF;
+    opacity: 1;
+}
+
+.notifal-billing-only input[type="text"]:focus-within,
+.notifal-billing-only input[type="tel"]:focus-within,
+.notifal-billing-only input[type="email"]:focus-within{
+    background-color: #fff;
+}
+
+
+/* Select2 styling for billing fields */
+.notifal-billing-only .select2-container--default .select2-selection--single {
+    width: 100%;
+    height: 50px;
+    border: 1px solid #7B2CBF;
+    background-color: #FDF8FF;
+    border-radius: 12px;
+    padding: 0;
+}
+
+.notifal-billing-only .select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #33263A;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "Raleway", Sans-serif;
+    padding: 8px 12px;
+    line-height: 34px;
+    background: transparent;
+}
+
+.notifal-billing-only .select2-container--default .select2-selection--single .select2-selection__placeholder {
+    color: #DFA5FF;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "Raleway", Sans-serif;
+}
+
+.notifal-billing-only .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 48px;
+    right: 12px;
+}
+
+.notifal-billing-only .select2-container--default .select2-selection--single .select2-selection__arrow b {
+    border-color: #DFA5FF transparent transparent transparent;
+    border-width: 6px 6px 0 6px;
+}
+
+.notifal-billing-only input[type="text"]:focus,
+.notifal-billing-only input[type="tel"]:focus,
+.notifal-billing-only input[type="email"]:focus,
+.notifal-billing-only select:focus {
+    border-color: #7B2CBF;
+    outline: none;
+    background-color: #fff;
+    color: #33263A;
+}
+
+.notifal-billing-only .required {
+    color: #dc3232;
+}
+
+.notifal-billing-only .clear {
+    clear: both;
+}
+
+.notifal-billing-only h3{
+    margin: unset;
+    margin-bottom: 22px;
+    font-size: 1.5rem;
+}
+
+/* ========================================
+   DROPDOWN STYLES (Applied to body-level dropdown)
+   ======================================== */
+
+/* Target the dropdown container directly (it's appended to body) */
+.select2-container--default .select2-dropdown {
+    border: 1px solid #7B2CBF;
+    border-radius: 12px;
+    background-color: #FDF8FF;
+    box-shadow: 0 4px 12px rgba(123, 44, 191, 0.15);
+    margin-top: 4px;
+}
+
+/* Search box container */
+.select2-container--default .select2-search--dropdown {
+    padding: 12px;
+    background-color: #FDF8FF;
+}
+
+/* Search input field */
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border: 1px solid #7B2CBF;
+    border-radius: 8px;
+    background-color: #FDF8FF;
+    color: #33263A;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "Raleway", Sans-serif;
+    padding: 10px 12px;
+    outline: none;
+}
+
+/* Search input placeholder */
+.select2-container--default .select2-search--dropdown .select2-search__field::placeholder {
+    color: #DFA5FF;
+    opacity: 1;
+}
+
+/* Search input on focus */
+.select2-container--default .select2-search--dropdown .select2-search__field:focus {
+    border-color: #7B2CBF;
+    background-color: #FDF8FF;
+    box-shadow: 0 0 0 3px rgba(223, 165, 255, 0.2);
+}
+
+/* Results container */
+.select2-container--default .select2-results {
+    background-color: #FDF8FF;
+}
+
+/* Results options list */
+.select2-container--default .select2-results__options {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+/* Individual country options */
+.select2-container--default .select2-results__option {
+    padding: 12px 16px;
+    color: #7B2CBF;
+    font-size: 16px;
+    font-family: "Raleway", Sans-serif;
+    background-color: #FDF8FF;
+    transition: all 0.2s ease;
+}
+
+/* Hovered/Highlighted option */
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #F3E5FF;
+    color: #7B2CBF;
+    font-weight: bold;
+}
+
+/* Currently selected option (the one already chosen) */
+.select2-container--default .select2-results__option[aria-selected="true"] {
+    background-color: #DFA5FF;
+    color: #33263A;
+    font-weight: bold;
+}
+
+/* "No results found" message */
+.select2-container--default .select2-results__message {
+    color: #DFA5FF;
+    font-size: 16px;
+    font-family: "Raleway", Sans-serif;
+    padding: 12px 16px;
+}
+
+/* Custom scrollbar for dropdown */
+.select2-container--default .select2-results__options::-webkit-scrollbar {
+    width: 8px;
+}
+
+.select2-container--default .select2-results__options::-webkit-scrollbar-track {
+    background: #FDF8FF;
+    border-radius: 4px;
+}
+
+.select2-container--default .select2-results__options::-webkit-scrollbar-thumb {
+    background: #DFA5FF;
+    border-radius: 4px;
+}
+
+.select2-container--default .select2-results__options::-webkit-scrollbar-thumb:hover {
+    background: #7B2CBF;
+}
+
+/* When select is open/focused */
+.notifal-billing-only .select2-container--default.select2-container--open .select2-selection--single {
+    border-color: #7B2CBF;
+    box-shadow: 0 0 0 3px rgba(223, 165, 255, 0.2);
+}
+
+/* Arrow when dropdown is open */
+.notifal-billing-only .select2-container--default.select2-container--open .select2-selection__arrow b {
+    border-color: transparent transparent #DFA5FF transparent;
+    border-width: 0 6px 6px 6px;
+}
+
+/* Ensure proper responsive behavior for billing fields */
+@media (max-width: 1024px) {
+    .notifal-billing-only .woocommerce-billing-fields__field-wrapper {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .notifal-billing-only .notifal-field-left,
+    .notifal-billing-only .notifal-field-right {
+        min-width: 100%;
+        margin-bottom: 15px;
+    }
+}
+/***** End - Notifal Billing Fields Shortcode *****/
+
+/* WooCommerce Checkout Field Labels */
+.woocommerce-checkout .form-row label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* WooCommerce optional field styling */
+.woocommerce-checkout .form-row label .optional {
+    color: #666;
+    font-weight: normal;
+    font-style: italic;
+}
+
+/***** Notifal Payment Checkout Shortcode *****/
+.notifal-payment-checkout {
+    background: #fdfbff !important;
+    border: 1px solid #EAEAEA;
+    border-radius: 16px !important;
+    padding: 24px;
+    font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin-bottom: 20px;
+}
+
+/* Payment Methods Styling */
+.notifal-payment-checkout .wc_payment_methods {
+    padding: 0;
+    margin: 0 0 24px 0;
+    border: none;
+    list-style: none;
+}
+
+.notifal-payment-checkout .wc_payment_methods .wc_payment_method {
+    background: transparent;
+    padding: 0;
+    margin-bottom: 0;
+    border: none;
+}
+
+.notifal-payment-checkout .wc_payment_methods .wc_payment_method > label {
+    font-weight: 600;
+    color: #33263A;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+.notifal-payment-checkout .wc_payment_methods .wc_payment_method input[type="radio"] {
+    display: none; /* Hide radio button, selection is implicit */
+}
+
+.notifal-payment-checkout .wc_payment_methods .wc_payment_method img {
+    width: 230px;
+    margin-left: auto;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Payment method description box - Target description specifically */
+.notifal-payment-checkout .wc_payment_methods .wc_payment_method .payment_box[class*="_description"] {
+    margin-top: 16px;
+    margin-bottom: 0;
+    background: #FDFBFF !important;
+    border-radius: 8px !important;
+    border: none !important;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    display: flex !important;
+    align-items: flex-start;
+    padding: unset !important;
+}
+
+.notifal-payment-checkout .wc_payment_methods .wc_payment_method .payment_box[class*="_description"]::before {
+    content: "🔒" !important;
+  font-size: 18px;
+  flex-shrink: 0;
+  border: unset !important;
+  position: relative !important;
+  top: unset !important;
+  left: unset !important;
+  margin: unset !important;
+  margin-right: 5px !important;
+}
+
+.notifal-payment-checkout .wc_payment_methods .wc_payment_method .payment_box[class*="_description"] p {
+    margin: 0 !important;
+    padding: 0;
+    color: #10002B !important;
+    opacity: 30%;
+    flex: 1;
+}
+
+/* Hide other payment boxes that aren't descriptions */
+.notifal-payment-checkout .payment_box:not([class*="_description"]) {
+    display: none !important;
+}
+
+/* Privacy Policy Text (above button) */
+.notifal-payment-checkout .woocommerce-privacy-policy-text {
+    margin-bottom: 24px;
+}
+
+.notifal-payment-checkout .woocommerce-privacy-policy-text p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.notifal-payment-checkout .woocommerce-privacy-policy-text a {
+    color: #6D20C5;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.notifal-payment-checkout .woocommerce-privacy-policy-text a:hover {
+    text-decoration: underline;
+}
+
+/* Checkout Button Styling */
+.notifal-payment-checkout .form-row.place-order {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.notifal-payment-checkout #place_order {
+    background: #6D20C5;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: "Raleway", sans-serif;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    text-transform: none;
+    box-shadow: 0 4px 15px rgba(109, 32, 197, 0.2);
+    transition: all 0.3s ease;
+    width: 100%;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    margin-bottom: 0;
+}
+
+.notifal-payment-checkout #place_order:hover {
+    background: #5A1A9E;
+    box-shadow: 0 6px 20px rgba(109, 32, 197, 0.3);
+    transform: translateY(-2px);
+}
+
+.notifal-payment-checkout #place_order:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(109, 32, 197, 0.2);
+}
+
+/* Terms Text (below button) */
+.notifal-payment-checkout .notifal-terms-text {
+    margin-top: 51px;
+    margin-bottom: 0;
+    padding-top: 15px !important;
+    font-size: 13px;
+    color: #888;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.notifal-payment-checkout .notifal-terms-text a {
+    color: #6D20C5;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.notifal-payment-checkout .notifal-terms-text a:hover {
+    text-decoration: underline;
+}
+
+/* Hide default terms and conditions checkbox */
+.notifal-payment-checkout .woocommerce-terms-and-conditions-wrapper {
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .notifal-payment-checkout {
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    .notifal-payment-checkout #place_order {
+        font-size: 16px;
+        padding: 14px;
+    }
+}
+
+.woocommerce-checkout #payment ul.payment_methods{
+    border-bottom: unset !important;
+}
+
+/** override woocommere css **/
+
+/***** End - Notifal Payment Checkout Shortcode *****/
+
+/***** Start - Notifal Order Details Shortcode *****/
+
+/* Main order details container */
+
+.notifal-order-details {
+    border-radius: 16px;
+    color: #fff;
+    padding: 2.5rem;
+}
+
+/* Heading */
+.notifal-order-details__heading {
+    margin: 0 0 2rem 0;
+    color: #F8EBFF !important;
+    font-weight: 600;
+    font-size: 27px !important;
+}
+
+/* Product row */
+.notifal-order-details__product {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+/* Product icon */
+.notifal-order-details__product-icon {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.notifal-order-details__icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.notifal-order-details__icon-placeholder {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+}
+
+/* Product info */
+.notifal-order-details__product-info {
+    flex: 1;
+}
+
+.notifal-order-details__product-name {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem !important;
+    font-weight: 600;
+    color: #F8EBFF !important;
+}
+
+.notifal-order-details__product-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+}
+
+.notifal-order-details__price-amount {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.notifal-order-details__price-regular {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: line-through;
+    margin-right: 0.5rem;
+}
+
+.notifal-order-details__price-sale {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #4CAF50;
+    margin-right: 0.25rem;
+}
+
+.notifal-order-details__price-period {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Domain count selector */
+.notifal-order-details__domain-count-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 24px;
+    width: max-content;
+    margin: auto;
+}
+
+.notifal-order-details__btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 1.25rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.notifal-order-details__btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.notifal-order-details__domain-number {
+    min-width: 24px;
+    text-align: center;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.notifal-order-details__domain-count-label {
+    text-align: center;
+}
+
+/* Coupon section */
+.notifal-order-details__coupon {
+    margin-bottom: 1.5rem;
+}
+
+.notifal-order-details__coupon-text {
+    font-size: 17px;
+    color: #F8EBFF;
+}
+.notifal-order-details__coupon-link {
+    color: #F8EBFF !important;
+    text-decoration: underline !important;
+    font-size: 16px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.notifal-order-details__coupon-link:hover {
+    opacity: 0.8;
+}
+
+/* Coupon form */
+
+.notifal-order-details__coupon-form {
+    margin-top: 1rem;
+    gap: 0.75rem;
+    display: flex;
+}
+
+.notifal-order-details__coupon-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+}
+
+.notifal-order-details__coupon-input:focus-visible{
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    outline: unset !important;
+}
+
+.notifal-order-details__coupon-apply {
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.notifal-order-details__coupon-apply:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Applied coupons */
+.notifal-order-details__applied-coupons {
+    margin-bottom: 1rem;
+}
+
+.notifal-order-details__applied-coupon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.notifal-order-details__coupon-code {
+    font-weight: 600;
+    color: #fff;
+    font-size: 0.9375rem;
+}
+
+.notifal-order-details__coupon-discount {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.875rem;
+}
+
+.notifal-order-details__coupon-remove {
+    padding: 0.375rem 0.75rem;
+    background: rgba(255, 0, 0, 0.2);
+    color: #fff;
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    border-radius: 4px;
+    font-size: 0.8125rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.notifal-order-details__coupon-remove:hover {
+    background: rgba(255, 0, 0, 0.3);
+}
+
+.notifal-order-details__coupon-remove:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Domain info icon */
+.notifal-order-details__domain-info-icon {
+    margin-left: 0.5rem;
+    cursor: help;
+    display: inline-block;
+    vertical-align: middle;
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.2s;
+}
+
+.notifal-order-details__domain-info-icon:hover {
+    color: #fff;
+}
+
+.notifal-order-details__domain-info-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Tooltip */
+.notifal-tooltip {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    max-width: 300px;
+    z-index: 9999;
+    pointer-events: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    display: none;
+    cursor: default;
+}
+
+.notifal-tooltip a {
+    color: #4CAF50;
+    text-decoration: underline;
+}
+
+.notifal-tooltip a:hover {
+    color: #45a049;
+}
+
+/* Loading state for order details */
+.notifal-order-details--loading {
+    opacity: 0.7;
+    pointer-events: none;
+    position: relative;
+}
+
+.notifal-order-details--loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid #fff;
+    border-radius: 50%;
+    animation: notifal-spin 1s linear infinite;
+    z-index: 10;
+}
+
+@keyframes notifal-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Pricing section */
+.notifal-order-details__pricing {
+    padding: 1.5rem 0;
+    margin-bottom: 1.5rem;
+}
+
+.notifal-order-details__total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notifal-order-details__total-label {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.notifal-order-details__total-amount {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* Testimonial section */
+.notifal-order-details__testimonial {
+    padding-top: 1.5rem;
+    border-top: 2px dashed #F8EBFF29;
+}
+
+.notifal-order-details__testimonial-quote {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.notifal-order-details__quote-mark {
+    font-size: 3rem;
+    color: #F8EBFF;
+}
+
+.notifal-order-details__quote-text {
+    margin: 0 0 0.75rem 0;
+    font-size: 24px;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.6;
+}
+
+.notifal-order-details__quote-text strong {
+    font-weight: 700;
+    color: #fff;
+}
+
+.notifal-order-details__quote-author {
+    margin: 0;
+    font-size: 16px;
+    color: #F8EBFF;
+}
+
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+    .notifal-order-details {
+        padding: 1.5rem;
+    }
+    .notifal-checkout-heading h1{
+        font-size: 1.8rem !important;
+    }
+    .notifal-checkout-heading p{
+        font-size: 1.3rem !important;
+    }
+
+    .notifal-order-details__heading {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .notifal-order-details__product {
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .notifal-order-details__product-icon {
+        width: 56px;
+        height: 56px;
+    }
+
+    .notifal-order-details__product-name {
+        font-size: 1.2rem !important;
+    }
+
+    .notifal-order-details__price-amount,
+    .notifal-order-details__price-sale {
+        font-size: 1.25rem;
+    }
+
+    .notifal-order-details__price-regular {
+        font-size: 1.1rem;
+    }
+
+    .notifal-order-details__domain-count {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .notifal-order-details__total-amount {
+        font-size: 1.75rem;
+    }
+
+    .notifal-order-details__testimonial {
+        padding: 1rem;
+    }
+
+    .notifal-order-details__quote-text {
+        font-size: 0.9375rem;
+    }
+
+    .notifal-checkout-heading {
+        margin-bottom: 10px;
+    }
+}
+
+/***** End - Notifal Order Details Shortcode *****/
+
+/* Loading state for order details */
+.notifal-order-details--loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.notifal-order-details--loading::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(103, 103, 103, 0.8);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+}
+
+.notifal-order-details--loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    margin: -12px 0 0 -12px;
+    border: 2px solid #fff;
+    border-top: 2px solid #000;
+    border-radius: 50%;
+    animation: notifal-spin 1s linear infinite;
+    z-index: 11;
+}
+
+@keyframes notifal-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Error notification styles */
+.notifal-order-details__error {
+    background: #ffe6e6;
+    border: 1px solid #ff9999;
+    color: #cc0000;
+    padding: 12px 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    display: none;
+}
+
+.notifal-order-details__error.show {
+    display: block;
+}
+
+.notifal-order-details__error-icon {
+    margin-right: 8px;
+    font-weight: bold;
+}
+
+/* Global WooCommerce-style Checkout Notices */
+.woocommerce-notices-wrapper {
+    margin-bottom: 20px;
+    font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.woocommerce-notices-wrapper .woocommerce-message,
+.woocommerce-notices-wrapper .woocommerce-info,
+.woocommerce-notices-wrapper .woocommerce-error {
+    margin-bottom: 20px;
+    border-radius: 16px !important;
+    padding: 20px 24px 20px 60px !important;
+    position: relative;
+    background: #fdfbff !important;
+    color: #33263A !important;
+    border: 1px solid #EAEAEA !important;
+    border-left: 4px solid #7B2CBF !important;
+    list-style: none;
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(123, 44, 191, 0.08);
+}
+
+.woocommerce-notices-wrapper .woocommerce-message {
+    border-left-color: #28a745 !important;
+}
+
+.woocommerce-notices-wrapper .woocommerce-message::before {
+    content: "✓";
+    font-size: 18px;
+    position: absolute;
+    left: 24px;
+    top: 20px;
+    color: #28a745;
+}
+
+.woocommerce-notices-wrapper .woocommerce-info {
+    border-left-color: #17a2b8 !important;
+}
+
+.woocommerce-notices-wrapper .woocommerce-info::before {
+    content: "ℹ";
+    font-size: 18px;
+    position: absolute;
+    left: 24px;
+    top: 20px;
+    color: #17a2b8;
+}
+
+.woocommerce-notices-wrapper .woocommerce-error {
+    border-left-color: #dc3545 !important;
+}
+
+.woocommerce-notices-wrapper .woocommerce-error::before {
+    content: "⚠";
+    font-size: 18px;
+    position: absolute;
+    left: 24px;
+    top: 20px;
+    color: #dc3545;
+}
+
+.woocommerce-notices-wrapper .woocommerce-message li,
+.woocommerce-notices-wrapper .woocommerce-info li,
+.woocommerce-notices-wrapper .woocommerce-error li {
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.woocommerce-notices-wrapper .woocommerce-message a,
+.woocommerce-notices-wrapper .woocommerce-info a,
+.woocommerce-notices-wrapper .woocommerce-error a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.woocommerce-notices-wrapper .woocommerce-message a:hover,
+.woocommerce-notices-wrapper .woocommerce-info a:hover,
+.woocommerce-notices-wrapper .woocommerce-error a:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+/***** Notifal Pay for Order Styles *****/
+.notifal-pay-for-order {
+    max-width: 1400px;
+    margin: 0 auto;
+    font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.notifal-pay-for-order .notifal-checkout-content {
+    display: grid;
+    grid-template-columns: 1fr 0.7fr; /* 67% and 33% ratio (2:1) */
+    grid-template-rows: auto;
+    gap: 20px; /* Reduced gap for tighter spacing between sections */
+    width: 100%;
+}
+
+/* Pay page specific grid layout */
+.notifal-pay-for-order .notifal-checkout-payment-section {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: start;
+    margin-top: unset !important;
+}
+
+.notifal-pay-for-order .notifal-checkout-order-section {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.notifal-pay-for-order .notifal-checkout-elementor-section {
+    font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Pay order actions styling */
+.notifal-pay-for-order .notifal-pay-order-actions {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.notifal-pay-for-order .notifal-pay-order-actions .notifal-pay-button {
+    width: 100%;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.notifal-pay-for-order .notifal-checkout-order-section h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+}
+
+.notifal-pay-for-order .notifal-order-summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0;
+}
+
+.notifal-pay-for-order .notifal-order-summary-table th,
+.notifal-pay-for-order .notifal-order-summary-table td {
+    padding: 12px 8px;
+    text-align: left;
+    border-bottom: 1px solid #EAEAEA;
+    font-size: 15px;
+}
+
+.notifal-pay-for-order .notifal-order-summary-table .product-name {
+    width: 70%;
+}
+
+.notifal-pay-for-order .notifal-order-summary-table .product-total {
+    width: 30%;
+    text-align: right;
+}
+
+/* Custom Terms Styles for Pay for Order */
+.notifal-pay-for-order .woocommerce-terms-and-conditions-wrapper {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.notifal-pay-for-order .woocommerce-terms-and-conditions-wrapper .woocommerce-form__label-for-checkbox {
+    display: inline-flex !important;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+    justify-content: center;
+}
+
+.notifal-pay-for-order .woocommerce-terms-and-conditions-wrapper .woocommerce-form__input-checkbox {
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.notifal-pay-for-order .woocommerce-terms-and-conditions-wrapper .woocommerce-terms-and-conditions-checkbox-text {
+    flex: 1;
+    text-align: left;
+}
+
+.notifal-pay-for-order .woocommerce-terms-and-conditions-wrapper .woocommerce-terms-and-conditions-link {
+    color: #7B2CBF;
+    text-decoration: underline;
+}
+
+.notifal-pay-for-order .woocommerce-terms-and-conditions-wrapper .woocommerce-terms-and-conditions-link:hover {
+    color: #9D4EDD;
+    text-decoration: none;
+}
+
+.notifal-pay-for-order .woocommerce-terms-and-conditions-wrapper .required {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.notifal-pay-for-order .notifal-order-summary-table th {
+    font-weight: 600;
+}
+
+.notifal-pay-for-order .notifal-order-summary-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.notifal-pay-for-order .notifal-order-summary-table tfoot th,
+.notifal-pay-for-order .notifal-order-summary-table tfoot td {
+    border-top: 2px solid #EAEAEA;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+
+.notifal-pay-for-order .notifal-checkout-payment-section h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+}
+
+.notifal-pay-for-order .notifal-checkout-form #payment {
+    background: transparent;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/* Pay page payment methods styling - matching notifal_payment_checkout shortcode */
+.notifal-pay-for-order .wc_payment_methods {
+    border: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+.notifal-pay-for-order .wc_payment_methods .wc_payment_method {
+    list-style: none;
+    margin-bottom: 15px;
+    background: #FDFBFF !important;
+    border: 1px solid #EAEAEA !important;
+    border-radius: 8px !important;
+    padding: 16px !important;
+    transition: all 0.3s ease;
+}
+
+.notifal-pay-for-order .wc_payment_methods .wc_payment_method:hover {
+    border-color: #7B2CBF !important;
+    box-shadow: 0 2px 8px rgba(123, 44, 191, 0.1);
+}
+
+.notifal-pay-for-order .wc_payment_methods .wc_payment_method input[type="radio"] {
+    margin-right: 10px;
+}
+
+.notifal-pay-for-order .wc_payment_methods .wc_payment_method label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #1a1a1a;
+    margin-bottom: 0 !important;
+}
+
+.notifal-pay-for-order .wc_payment_methods .wc_payment_method label img {
+    max-height: 24px;
+    width: auto;
+}
+
+/* Payment method description boxes */
+.notifal-pay-for-order .wc_payment_methods .wc_payment_method .payment_box[class*="_description"] {
+    margin-top: 16px;
+    margin-bottom: 0;
+    background: #FDFBFF !important;
+    border-radius: 8px !important;
+    border: none !important;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    display: flex !important;
+    align-items: flex-start;
+    padding: unset !important;
+}
+
+/* Lock icon for payment method descriptions */
+.notifal-pay-for-order .wc_payment_methods .wc_payment_method .payment_box[class*="_description"]::before {
+    content: "🔒" !important;
+    font-size: 18px;
+    flex-shrink: 0;
+    border: unset !important;
+    position: relative !important;
+    top: unset !important;
+    left: unset !important;
+    margin: unset !important;
+    margin-right: 5px !important;
+}
+
+.notifal-pay-for-order .wc_payment_methods .wc_payment_method .payment_box[class*="_description"] p {
+    margin: 0 !important;
+    padding: 0;
+    color: #10002B !important;
+    opacity: 30%;
+    flex: 1;
+}
+
+/* Hide other payment boxes that aren't descriptions */
+
+.notifal-pay-for-order .notifal-pay-button {
+    background: linear-gradient(135deg, #7B2CBF 0%, #9D4EDD 100%);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.notifal-pay-for-order .notifal-pay-button:hover {
+    background: linear-gradient(135deg, #9D4EDD 0%, #7B2CBF 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(123, 44, 191, 0.3);
+}
+
+/* Tablet and Mobile responsive styles for pay for order (< 1024px) */
+@media (max-width: 1024px) {
+    .notifal-pay-for-order .notifal-checkout-content {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        gap: 20px;
+    }
+
+    /* Mobile order: 1. Payment, 2. Order details (with Elementor inside) */
+    .notifal-pay-for-order .notifal-checkout-payment-section {
+        grid-column: 1;
+        grid-row: 1;
+        order: 1;
+    }
+
+    .notifal-pay-for-order .notifal-checkout-order-section {
+        grid-column: 1;
+        grid-row: 2;
+        order: 2;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .notifal-pay-for-order .notifal-order-summary-table th,
+    .notifal-pay-for-order .notifal-order-summary-table td {
+        padding: 8px 4px;
+        font-size: 15px;
+    }
+
+    .notifal-pay-for-order .notifal-order-summary-table .product-name,
+    .notifal-pay-for-order .notifal-order-summary-table .product-total {
+        width: auto;
+    }
+
+    .notifal-pay-for-order .notifal-order-summary-table .product-total {
+        text-align: left;
+    }
+
+    .notifal-pay-for-order .woocommerce-terms-and-conditions-wrapper {
+        margin: 15px 0;
+    }
+
+    .notifal-pay-for-order .woocommerce-terms-and-conditions-wrapper .woocommerce-form__label-for-checkbox {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        justify-content: flex-start;
+    }
+
+    .notifal-pay-for-order .woocommerce-terms-and-conditions-wrapper .woocommerce-form__input-checkbox {
+        margin-top: 0;
+        align-self: flex-start;
+    }
+
+    .notifal-pay-for-order .woocommerce-terms-and-conditions-wrapper .woocommerce-terms-and-conditions-checkbox-text {
+        text-align: left;
+        flex: none;
+    }
+}

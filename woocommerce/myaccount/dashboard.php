@@ -30,12 +30,16 @@ $current_user = wp_get_current_user();
         'orders' => array(
             'icon' => 'shopping-bag',
             'value' => wc_get_customer_order_count( get_current_user_id() ),
-            'label' => __( 'Total Orders', 'notifal' )
+            'label' => __( 'Total Orders', 'notifal' ),
+            'action_url' => wc_get_account_endpoint_url( 'orders' ),
+            'action_text' => __( 'View Orders', 'notifal' )
         ),
-        'downloads' => array(
-            'icon' => 'download',
-            'value' => count( wc_get_customer_available_downloads( get_current_user_id() ) ),
-            'label' => __( 'Available Downloads', 'notifal' )
+        'support' => array(
+            'icon' => 'chat',
+            'value' => notifal_get_support_ticket_display_value(),
+            'label' => __( 'Support Tickets', 'notifal' ),
+            'action_url' => wc_get_account_endpoint_url( 'support' ),
+            'action_text' => __( 'Get Support', 'notifal' )
         )
     );
 
@@ -46,13 +50,23 @@ $current_user = wp_get_current_user();
     <div class="dashboard-stats">
         <?php foreach ( $dashboard_stats as $stat_key => $stat ) : ?>
             <div class="stat-card">
-                <div class="stat-icon">
-                    <?php echo function_exists( 'notifal_get_icon_svg' ) ? notifal_get_icon_svg( $stat['icon'] ) : ''; ?>
+                <div class="stat-card-header">
+                    <div class="stat-icon">
+                        <?php echo function_exists( 'notifal_get_icon_svg' ) ? notifal_get_icon_svg( $stat['icon'] ) : ''; ?>
+                    </div>
+                    <div class="stat-content">
+                        <strong><?php echo wp_kses_post( $stat['value'] ); ?></strong>
+                        <p><?php echo esc_html( $stat['label'] ); ?></p>
+                    </div>
                 </div>
-                <div class="stat-content">
-                    <h3><?php echo esc_html( $stat['value'] ); ?></h3>
-                    <p><?php echo esc_html( $stat['label'] ); ?></p>
-                </div>
+                <?php if ( ! empty( $stat['action_url'] ) && ! empty( $stat['action_text'] ) ) : ?>
+                    <div class="stat-action">
+                        <a href="<?php echo esc_url( $stat['action_url'] ); ?>" class="btn btn-primary">
+                            <?php echo esc_html( $stat['action_text'] ); ?>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                <?php endif; ?>
             </div>
         <?php endforeach; ?>
     </div>
